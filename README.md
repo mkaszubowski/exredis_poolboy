@@ -5,8 +5,6 @@ The main goal was to be able to use all Exredis.Api functions which automaticall
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
   1. Add `exredis_poolboy` to your list of dependencies in `mix.exs`:
 
     ```elixir
