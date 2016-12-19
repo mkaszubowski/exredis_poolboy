@@ -1,6 +1,8 @@
 defmodule ExredisPoolboy do
   use Application
 
+  use ExredisPoolboy.FunctionsWrapper
+
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
