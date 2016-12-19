@@ -66,3 +66,19 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
      MyApp.Redis.llen("key")
      MyApp.Redis.sadd("key", "value")
   ```
+  
+  ## Overriding functions
+  
+  All functions are marked as overridable so you can extend basic functions, for example:
+  
+  ```elixir
+  defmodule MyApp.Redis do
+    use ExredisPoolboy.FunctionsDefinitions, :my_app_redis
+    
+    def llen(key) do
+      key
+      |> super()
+      |> String.to_integer()
+    end
+  end
+  ```
