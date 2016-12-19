@@ -15,7 +15,7 @@ defmodule ExredisPoolboy.Worker do
     res = apply(Exredis.Api, fun, params)
 
     new_state = %{state | client: c}
-    {:reply, res, %{client: c}}
+    {:reply, res, new_state}
   end
 
   defp get_or_create_client(%{client: nil, config_key: config_key}) do
