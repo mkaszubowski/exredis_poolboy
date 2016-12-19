@@ -1,4 +1,7 @@
 defmodule ExredisPoolboy.Worker do
+  @moduledoc """
+  Worker module. Passes all the functions to exredis.
+  """
   use GenServer
 
   def start_link(args) do

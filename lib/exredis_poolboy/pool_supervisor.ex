@@ -1,4 +1,7 @@
 defmodule ExredisPoolboy.PoolSupervisor do
+  @moduledoc """
+  Creates and supervises the pool of workers
+  """
   use Supervisor
 
   def start_link(args) do

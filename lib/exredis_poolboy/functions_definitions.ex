@@ -1,4 +1,9 @@
 defmodule ExredisPoolboy.FunctionsDefinitions do
+  @moduledoc """
+  Defines all public functions from Exredis.Api module that are executed by poolboy worker.
+  """
+
+  @doc "Imports all the functions into caller module"
   defmacro __using__(config_key \\ nil) do
     exredis_api_functions =
       :functions
@@ -49,6 +54,7 @@ defmodule ExredisPoolboy.FunctionsDefinitions do
   end
 
 
+  @doc false
   defp create_args(0), do: []
   defp create_args(arity) do
     Enum.map((1..arity), &Macro.var(:"arg-#{&1}", __MODULE__))
