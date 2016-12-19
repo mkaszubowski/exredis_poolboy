@@ -9,6 +9,13 @@ defmodule ExredisPoolboy.Worker do
     {:ok, %{client: nil, config_key: key}}
   end
 
+  def handle_call({:query, command}, _from, state) do
+    c = get_or_create_client(state)
+    res = Exredis.query(c, command)
+
+    new_state = %{state | client: c}
+    {:reply, res, new_state}
+  end
   def handle_call({fun, params}, _from, state) when is_list(params) do
     c = get_or_create_client(state)
     params = [c | params]
