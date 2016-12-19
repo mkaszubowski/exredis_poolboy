@@ -26,9 +26,9 @@ defmodule ExredisPoolboy.Mixfile do
 
   defp package do
     [
-      mainainers: ["Maciej Kaszubowski"],
+      maintainers: ["Maciej Kaszubowski"],
       files: ["lib", "mix.exs", "README.md"],
-      licences: ["MIT"],
+      licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/mkaszubowski/exredis_poolboy"}
     ]
   end
