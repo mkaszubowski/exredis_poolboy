@@ -14,7 +14,7 @@ defmodule ExredisPoolboy.PoolSupervisor do
     ]
 
     children = [
-      :poolboy.child_spec(get_name(key), pool_options, [args]),
+      :poolboy.child_spec(get_name(key), pool_options, args),
     ]
 
     supervise(children, strategy: :one_for_one)

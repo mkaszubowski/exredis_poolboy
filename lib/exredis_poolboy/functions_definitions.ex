@@ -1,5 +1,5 @@
-defmodule ExredisPoolboy.FunctionsWrapper do
-  defmacro __using__(_args) do
+defmodule ExredisPoolboy.FunctionsDefinitions do
+  defmacro __using__(config_key \\ nil) do
     :functions
     |> Exredis.Api.__info__()
     |> Enum.map(fn {name, arity} ->
@@ -7,7 +7,14 @@ defmodule ExredisPoolboy.FunctionsWrapper do
 
       quote do
         def unquote(name)(unquote_splicing(args)) do
-          :poolboy.transaction(:exredis_poolboy_pool, fn worker ->
+          pool_name  =
+            case unquote(config_key) do
+              nil -> :exredis_poolboy_pool
+              _ ->
+                Application.get_env(unquote(config_key), :pool_name, :exredis_poolboy_pool)
+            end
+
+          :poolboy.transaction(pool_name, fn worker ->
             GenServer.call(worker, {unquote(name), unquote(args)})
           end)
         end
