@@ -1,23 +1,25 @@
 defmodule ExredisPoolboy.Worker do
   use GenServer
 
-  def start_link(_args) do
-    GenServer.start_link(__MODULE__, [])
+  def start_link(args) do
+    GenServer.start_link(__MODULE__, args)
   end
 
-  def init([]) do
-    {:ok, %{client: nil}}
+  def init({:config_key, key}) do
+    {:ok, %{client: nil, config_key: key}}
   end
 
-  def handle_call({function_name, params} = tupple, _from, %{client: c}) when is_list(params) do
-    c = get_or_create_client(c)
+  def handle_call({fun, params}, _from, state) when is_list(params) do
+    c = get_or_create_client(state)
     params = [c | params]
-    res = apply(Exredis.Api, function_name, params)
+    res = apply(Exredis.Api, fun, params)
+
+    new_state = %{state | client: c}
     {:reply, res, %{client: c}}
   end
 
-  defp get_or_create_client(nil) do
-    config = Application.fetch_env!(:exredis_poolboy, :redis)
+  defp get_or_create_client(%{client: nil, config_key: config_key}) do
+    config = Application.fetch_env!(config_key, :redis)
     {:ok, client} =
       Exredis.start_link(
         config[:host],
@@ -28,9 +30,10 @@ defmodule ExredisPoolboy.Worker do
       )
     client
   end
-  defp get_or_create_client(client) do
+
+  defp get_or_create_client(%{client: client, config_key: config_key}) do
     case Process.alive?(client) do
-      false -> get_or_create_client(nil)
+      false -> get_or_create_client(%{client: nil, config_key: config_key})
       true -> client
     end
   end

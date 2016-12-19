@@ -7,7 +7,6 @@ defmodule ExredisPoolboy do
     import Supervisor.Spec, warn: false
 
     children = [
-      supervisor(ExredisPoolboy.PoolSupervisor, [])
     ]
 
     opts = [strategy: :one_for_one, name: ExredisPoolboy.Supervisor]
