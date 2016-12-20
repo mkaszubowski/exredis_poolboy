@@ -80,3 +80,8 @@ The main goal was to be able to use all Exredis.Api functions which automaticall
     end
   end
   ```
+  
+  ## TODO
+  
+  - Add support for `only`/`except` with `use ExredisPoolboy.FunctionsDefinitions`
+  - Allow using functions on ExredisPoolboy module directly (without need to start separate supervisor), e.g. `ExredisPoolboy.llen("key")`
