@@ -19,7 +19,7 @@ defmodule ExredisPoolboy.Mixfile do
 
   defp deps do
     [
-      {:exredis, ">= 0.2.2"},
+      {:exredis, "~> 0.2.0"},
       {:poolboy, "~> 1.5"},
       {:ex_doc, "~> 0.14", only: :dev}
     ]
