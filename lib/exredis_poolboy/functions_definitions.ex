@@ -1,6 +1,32 @@
 defmodule ExredisPoolboy.FunctionsDefinitions do
   @moduledoc """
   Defines all public functions from Exredis.Api module that are executed by poolboy worker.
+
+  Example usage:
+
+      defmodule MyApp.Redis do
+        use ExredisPoolboy.FunctionsDefinitions, :my_app
+      end
+
+      MyApp.Redis.sadd("key", 5)
+
+
+  All functions imported from Exredis.Api are `defoverridable`
+  so you can modify them if you want:
+
+      defmodule MyApp.Redis do
+        use ExredisPoolboy.FunctionsDefinitions, :my_app
+
+        def sadd(_key, nil), do: :error
+        def sadd(key, value), do: super(key, value)
+
+        def sismember(key, value) do
+          case super(key, value) do
+            "0" -> false
+            "1" -> true
+          end
+        end
+      end
   """
 
   @doc "Imports all the functions into caller module"
