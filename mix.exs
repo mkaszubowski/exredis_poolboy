@@ -3,7 +3,7 @@ defmodule ExredisPoolboy.Mixfile do
 
   def project do
     [app: :exredis_poolboy,
-     version: "0.2.1",
+     version: "0.2.2",
      description: "Wrapper around exredis using poolboy",
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
