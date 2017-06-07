@@ -7,19 +7,19 @@ The main goal was to be able to use all Exredis.Api functions which automaticall
 
   1. Add `exredis_poolboy` to your list of dependencies in `mix.exs`:
 
-    ```elixir
-    def deps do
-      [{:exredis_poolboy, "~> 0.2.0"}]
-    end
-    ```
+  ```elixir
+  def deps do
+    [{:exredis_poolboy, "~> 0.2.0"}]
+  end
+  ```
 
   2. Ensure `exredis_poolboy` is started before your application:
 
-    ```elixir
-    def application do
-      [applications: [:exredis_poolboy]]
-    end
-    ```
+  ```elixir
+  def application do
+    [applications: [:exredis_poolboy]]
+  end
+  ```
 
 ## Usage
 
@@ -61,8 +61,8 @@ The main goal was to be able to use all Exredis.Api functions which automaticall
   4. Use just like you would use exredis:
 
   ```elixir
-     MyApp.Redis.llen("key")
-     MyApp.Redis.sadd("key", "value")
+  MyApp.Redis.llen("key")
+  MyApp.Redis.sadd("key", "value")
   ```
   
   ## Overriding functions
